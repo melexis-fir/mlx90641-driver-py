@@ -9,14 +9,17 @@
 #include "MLX90641_API.h"
 #include "mlx90641_driver_register.h"
 #include "MLX90641_I2C_Driver_mcp2221.h"
+#include "MLX90641_I2C_Driver_devtree.h"
 
 #define MLX_I2C_ADDR 0x33
 
 int main(void){
 
     mlx90641_register_driver(MLX90641_get_register_mcp2221());
+    mlx90641_register_driver(MLX90641_get_register_devtree());
 
-    MLX90641_I2CInit("mcp://mcp:2221/0");
+    // MLX90641_I2CInit("mcp://mcp:2221/0");
+    MLX90641_I2CInit("/dev/i2c-1");
 
     // int state = 0;
     printf("Starting...\n");

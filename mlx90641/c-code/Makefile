@@ -41,11 +41,11 @@ clean:
 main.o: main.c
 	gcc -c -o $@ $(CFLAGS) $^
 
-# src/i2c.o: src/i2c.c
-# 	gcc -c -o $@ $(CFLAGS) $^
+src/i2c.o: src/i2c.c
+	gcc -c -o $@ $(CFLAGS) $^
 
-# src/MLX90641_I2C_Driver_devtree.o: src/MLX90641_I2C_Driver_devtree.c
-# 	gcc -c -o $@ $(CFLAGS) $^
+src/MLX90641_I2C_Driver_devtree.o: src/MLX90641_I2C_Driver_devtree.c
+	gcc -c -o $@ $(CFLAGS) $^
 
 src/MLX90641_I2C_Driver_mcp2221.o: src/MLX90641_I2C_Driver_mcp2221.c
 	gcc -c -o $@ $(CFLAGS) $^
@@ -60,16 +60,16 @@ src/mlx90641_driver_register.o: src/mlx90641_driver_register.c
 	gcc -c -o $@ $(CFLAGS) $^
 
 
-main: main.o src/MLX90641_I2C_Driver_mcp2221.o src/MLX90641_API.o src/mlx90641_driver_register.o
+main: main.o src/MLX90641_I2C_Driver_mcp2221.o src/MLX90641_API.o src/mlx90641_driver_register.o src/MLX90641_I2C_Driver_devtree.o src/i2c.o
 	gcc -o $@ $^ -lm -Wl,-rpath=../libs/$(MACHINE) -L../libs/$(MACHINE) $(DEP_LIBS)
 
 
-$(SHARED_LIB_FILE): src/MLX90641_API.o src/mlx90641_driver_register.o src/MLX90641_I2C_Driver_mcp2221.o
+$(SHARED_LIB_FILE): src/MLX90641_API.o src/mlx90641_driver_register.o src/MLX90641_I2C_Driver_mcp2221.o src/MLX90641_I2C_Driver_devtree.o src/i2c.o
 	gcc -shared -o $@ $^ -L../libs/$(MACHINE) $(DEP_LIBS) -Wl,-rpath=../libs/$(MACHINE)
 	@mkdir -p ../libs/$(MACHINE)
 	@cp -fv $@ ../libs/$(MACHINE)
 
-$(STATIC_LIB_FILE): src/MLX90641_API.o src/mlx90641_driver_register.o src/MLX90641_I2C_Driver_mcp2221.o
+$(STATIC_LIB_FILE): src/MLX90641_API.o src/mlx90641_driver_register.o src/MLX90641_I2C_Driver_mcp2221.o src/MLX90641_I2C_Driver_devtree.o src/i2c.o
 	ar rcu $@ $<
 	@mkdir -p ../libs/$(MACHINE)
 	@cp -fv $@ ../libs/$(MACHINE)

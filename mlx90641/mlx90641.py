@@ -126,16 +126,16 @@ class MLX90641:
         self._register_driver.argtypes = [ctypes.POINTER(ctypes.c_uint16)]
 
         # # struct MLX90641DriverRegister_t *MLX90641_get_register_evb9064x(void);
-        # self._get_register_evb9064x = libmlx90641.MLX90641_get_register_evb9064x
+        # self._get_register_evb9064x = lib_mlx90641.MLX90641_get_register_evb9064x
         # self._get_register_evb9064x.restype = ctypes.POINTER(ctypes.c_uint16)
         # self._get_register_evb9064x.argtypes = []
         # self._register_driver(self._get_register_evb9064x())
 
-        # # struct MLX90641DriverRegister_t *MLX90641_get_register_devtree(void);
-        # self._get_register_devtree = libmlx90641.MLX90641_get_register_devtree
-        # self._get_register_devtree.restype = ctypes.POINTER(ctypes.c_uint16)
-        # self._get_register_devtree.argtypes = []
-        # self._register_driver(self._get_register_devtree())
+        # struct MLX90641DriverRegister_t *MLX90641_get_register_devtree(void);
+        self._get_register_devtree = lib_mlx90641.MLX90641_get_register_devtree
+        self._get_register_devtree.restype = ctypes.POINTER(ctypes.c_uint16)
+        self._get_register_devtree.argtypes = []
+        self._register_driver(self._get_register_devtree())
 
         # struct MLX90641DriverRegister_t *MLX90641_get_register_mcp2221(void);
         self._get_register_mcp2221 = lib_mlx90641.MLX90641_get_register_mcp2221
