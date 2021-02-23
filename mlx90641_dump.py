@@ -1,33 +1,32 @@
-import sys
 from mlx90641 import *
-import ctypes
+
 
 def main():
-    print ("start")
-    dev = mlx90641()
-    print ("dev", dev)
+    print("start")
+    dev = MLX90641()
+    print("dev", dev)
 
     # r = dev.i2c_init("/dev/i2c-1")
     # r = dev.i2c_init("ftdi://ftdi:2232/1")
     r = dev.i2c_init("mcp://mcp:2221/0")
-    print ("init", r)
+    print("init", r)
     r = dev.set_refresh_rate(1)
-    print ("setRefreshRate", r)
+    print("setRefreshRate", r)
 
-    RR = dev.get_refresh_rate()
-    print ("refresh rate: {}".format (RR))
+    refresh_rate = dev.get_refresh_rate()
+    print("refresh rate: {}".format(refresh_rate))
 
     dev.dump_eeprom()
     dev.extract_parameters()
-    
-    for i in range(0,10):
+
+    for i in range(0, 10):
         dev.get_frame_data()
-        Ta = dev.get_TA()-8.0
+        ta = dev.get_ta() - 8.0
         emissivity = 1
 
-        To = dev.calculate_TO(emissivity, Ta)
+        to = dev.calculate_to(emissivity, ta)
 
-        print("{:02d}: {}".format(i, ','.join(format(x, ".2f") for x in To)))
+        print("{:02d}: {}".format(i, ','.join(format(x, ".2f") for x in to)))
 
 
 if __name__ == "__main__":

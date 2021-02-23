@@ -1,10 +1,8 @@
-import sys
 import os
 import ctypes
-import pathlib
 
 
-class paramsMLX90641(ctypes.Structure):
+class ParamsMLX90641(ctypes.Structure):
     _fields_ = [
         ("kVdd", ctypes.c_int16),
         ("vdd25", ctypes.c_int16),
@@ -19,110 +17,111 @@ class paramsMLX90641(ctypes.Structure):
         ("resolutionEE", ctypes.c_uint8),
         ("calibrationModeEE", ctypes.c_uint8),
         ("KsTa", ctypes.c_float),
-        ("ksTo", ctypes.c_float*8),
-        ("ct", ctypes.c_int16*8),
-        ("alpha", ctypes.c_uint16*192),    
+        ("ksTo", ctypes.c_float * 8),
+        ("ct", ctypes.c_int16 * 8),
+        ("alpha", ctypes.c_uint16 * 192),
         ("alphaScale", ctypes.c_uint8),
-        ("offset", ctypes.c_int16*2*192),    
-        ("kta", ctypes.c_int8*192),
-        ("ktaScale", ctypes.c_uint8),    
-        ("kv", ctypes.c_int8*192),
+        ("offset", ctypes.c_int16 * 2 * 192),
+        ("kta", ctypes.c_int8 * 192),
+        ("ktaScale", ctypes.c_uint8),
+        ("kv", ctypes.c_int8 * 192),
         ("kvScale", ctypes.c_uint8),
         ("cpAlpha", ctypes.c_float),
         ("cpOffset", ctypes.c_int16),
-        ("emissivityEE", ctypes.c_float), 
+        ("emissivityEE", ctypes.c_float),
         ("brokenPixel", ctypes.c_uint16)]
 
 
 # uncovered functions in python:
 
-
-    # int MLX90641_SynchFrame(uint8_t slaveAddr);
-    # int MLX90641_TriggerMeasurement(uint8_t slaveAddr);
-    # int MLX90641_GetFrameData(uint8_t slaveAddr, uint16_t *frameData);
-    # void MLX90641_GetImage(uint16_t *frameData, const paramsMLX90641 *params, float *result);
-    # float MLX90641_GetEmissivity(const paramsMLX90641 *mlx90641);
-    # void MLX90641_BadPixelsCorrection(uint16_t pixel, float *to);
-
-    # int MLX90641_I2CRead(uint8_t slaveAddr,uint16_t startAddress, uint16_t nMemAddressRead, uint16_t *data);
-    # int MLX90641_I2CWrite(uint8_t slaveAddr,uint16_t writeAddress, uint16_t data);
+# int MLX90641_SynchFrame(uint8_t slaveAddr);
+# int MLX90641_TriggerMeasurement(uint8_t slaveAddr);
+# int MLX90641_GetFrameData(uint8_t slaveAddr, uint16_t *frameData);
+# void MLX90641_GetImage(uint16_t *frameData, const paramsMLX90641 *params, float *result);
+# float MLX90641_GetEmissivity(const paramsMLX90641 *mlx90641);
+# void MLX90641_BadPixelsCorrection(uint16_t pixel, float *to);
+# int MLX90641_I2CRead(uint8_t slaveAddr,uint16_t startAddress, uint16_t nMemAddressRead, uint16_t *data);
+# int MLX90641_I2CWrite(uint8_t slaveAddr,uint16_t writeAddress, uint16_t data);
 
 
-class mlx90641():
-    def __init__(self, slaveAddr = 0x33):
-        ## Read shared libraries
-        import os
+class MLX90641:
+    def __init__(self, slave_address=0x33):
         cfp = os.path.dirname(os.path.realpath(__file__))
         machine = 'windows'
         shared_lib_file = 'mlx90641_driver.dll'
-        if os.environ.get('OS','') != 'Windows_NT':
+        if os.environ.get('OS', '') != 'Windows_NT':
             import platform
             machine = platform.machine()
             shared_lib_file = 'libmlx90641_driver.so'
 
-        libmlx90641 = ctypes.CDLL(os.path.join(cfp, 'libs', machine, shared_lib_file), mode=ctypes.RTLD_GLOBAL)
+        lib_mlx90641 = ctypes.CDLL(os.path.join(cfp, 'libs', machine, shared_lib_file), mode=ctypes.RTLD_GLOBAL)
 
-        self.slaveAddr = slaveAddr
-        self.eepromdata = (ctypes.c_uint16*832)()
-        self.frameData = (ctypes.c_uint16*834)()
-        self.params = paramsMLX90641()
-        self.mlx90641To = (ctypes.c_float * 192)()
+        self.slave_address = slave_address
+        self.eeprom_data = (ctypes.c_uint16 * 832)()
+        self.frame_data = (ctypes.c_uint16 * 834)()
+        self.params = ParamsMLX90641()
+        self.mlx90641_to = (ctypes.c_float * 192)()
 
-        ## Extract functions from shared libraries              
-        self._I2CInit = libmlx90641.MLX90641_I2CInit
-        self._I2CInit.restype = None
-        self._I2CInit.argtypes = [ctypes.c_char_p]
+        # Extract functions from shared libraries
+        self._i2c_init = lib_mlx90641.MLX90641_I2CInit
+        self._i2c_init.restype = None
+        self._i2c_init.argtypes = [ctypes.c_char_p]
 
-        self._I2CFreqSet = libmlx90641.MLX90641_I2CFreqSet
-        self._I2CFreqSet.restype = None
-        self._I2CFreqSet.argtypes = [ctypes.c_int]
+        self._i2c_freq_set = lib_mlx90641.MLX90641_I2CFreqSet
+        self._i2c_freq_set.restype = None
+        self._i2c_freq_set.argtypes = [ctypes.c_int]
 
-        self._dumpEE = libmlx90641.MLX90641_DumpEE
-        self._dumpEE.restype = ctypes.c_int
-        self._dumpEE.argtypes = [ctypes.c_uint8, ctypes.POINTER(ctypes.c_uint16)]
-      
-        self._getFrameData = libmlx90641.MLX90641_GetFrameData
-        self._getFrameData.restype = ctypes.c_int
-        self._getFrameData.argtypes = [ctypes.c_uint8, ctypes.POINTER(ctypes.c_uint16)]
-        
-        self._extractParameters = libmlx90641.MLX90641_ExtractParameters
-        self._extractParameters.restype = ctypes.c_int
-        self._extractParameters.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.POINTER(paramsMLX90641)]
-        
-        self._getVdd = libmlx90641.MLX90641_GetVdd
-        self._getVdd.restype = ctypes.c_float
-        self._getVdd.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.POINTER(paramsMLX90641)]
-        
-        self._getTa = libmlx90641.MLX90641_GetTa
-        self._getTa.restype = ctypes.c_float
-        self._getTa.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.POINTER(paramsMLX90641)]
-        
-        self._calculateTo = libmlx90641.MLX90641_CalculateTo
-        self._calculateTo.restype = None
-        self._calculateTo.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.POINTER(paramsMLX90641), ctypes.c_float, ctypes.c_float, ctypes.POINTER(ctypes.c_float)]
-        
-        self._setResolution = libmlx90641.MLX90641_SetResolution
-        self._setResolution.restype = ctypes.c_int
-        self._setResolution.argtypes = [ctypes.c_uint8, ctypes.c_uint8]
-        
-        self._getResolution = libmlx90641.MLX90641_GetCurResolution
-        self._getResolution.restype = ctypes.c_int
-        self._getResolution.argtypes = [ctypes.c_uint8]
-        
-        self._setRefreshRate = libmlx90641.MLX90641_SetRefreshRate
-        self._setRefreshRate.restype = ctypes.c_int
-        self._setRefreshRate.argtypes = [ctypes.c_uint8, ctypes.c_uint8]
-        
-        self._getRefreshRate = libmlx90641.MLX90641_GetRefreshRate
-        self._getRefreshRate.restype = ctypes.c_int
-        self._getRefreshRate.argtypes = [ctypes.c_uint8]
-        
-        self._getSubPageNumber = libmlx90641.MLX90641_GetSubPageNumber
-        self._getSubPageNumber.restype = ctypes.c_int
-        self._getSubPageNumber.argtypes = [ctypes.POINTER(ctypes.c_uint16)]
+        self._i2c_tear_down = lib_mlx90641.MLX90641_I2CClose
+        self._i2c_tear_down.restype = None
+        self._i2c_tear_down.argtypes = []
 
-            # void mlx90641_register_driver(struct MLX90641DriverRegister_t *driver);
-        self._register_driver = libmlx90641.mlx90641_register_driver
+        self._dump_eeprom = lib_mlx90641.MLX90641_DumpEE
+        self._dump_eeprom.restype = ctypes.c_int
+        self._dump_eeprom.argtypes = [ctypes.c_uint8, ctypes.POINTER(ctypes.c_uint16)]
+
+        self._get_frame_data = lib_mlx90641.MLX90641_GetFrameData
+        self._get_frame_data.restype = ctypes.c_int
+        self._get_frame_data.argtypes = [ctypes.c_uint8, ctypes.POINTER(ctypes.c_uint16)]
+
+        self._extract_parameters = lib_mlx90641.MLX90641_ExtractParameters
+        self._extract_parameters.restype = ctypes.c_int
+        self._extract_parameters.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.POINTER(ParamsMLX90641)]
+
+        self._get_vdd = lib_mlx90641.MLX90641_GetVdd
+        self._get_vdd.restype = ctypes.c_float
+        self._get_vdd.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.POINTER(ParamsMLX90641)]
+
+        self._get_ta = lib_mlx90641.MLX90641_GetTa
+        self._get_ta.restype = ctypes.c_float
+        self._get_ta.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.POINTER(ParamsMLX90641)]
+
+        self._calculate_to = lib_mlx90641.MLX90641_CalculateTo
+        self._calculate_to.restype = None
+        self._calculate_to.argtypes = [ctypes.POINTER(ctypes.c_uint16), ctypes.POINTER(ParamsMLX90641), ctypes.c_float,
+                                       ctypes.c_float, ctypes.POINTER(ctypes.c_float)]
+
+        self._set_resolution = lib_mlx90641.MLX90641_SetResolution
+        self._set_resolution.restype = ctypes.c_int
+        self._set_resolution.argtypes = [ctypes.c_uint8, ctypes.c_uint8]
+
+        self._get_resolution = lib_mlx90641.MLX90641_GetCurResolution
+        self._get_resolution.restype = ctypes.c_int
+        self._get_resolution.argtypes = [ctypes.c_uint8]
+
+        self._set_refresh_rate = lib_mlx90641.MLX90641_SetRefreshRate
+        self._set_refresh_rate.restype = ctypes.c_int
+        self._set_refresh_rate.argtypes = [ctypes.c_uint8, ctypes.c_uint8]
+
+        self._get_refresh_rate = lib_mlx90641.MLX90641_GetRefreshRate
+        self._get_refresh_rate.restype = ctypes.c_int
+        self._get_refresh_rate.argtypes = [ctypes.c_uint8]
+
+        self._get_sub_page_number = lib_mlx90641.MLX90641_GetSubPageNumber
+        self._get_sub_page_number.restype = ctypes.c_int
+        self._get_sub_page_number.argtypes = [ctypes.POINTER(ctypes.c_uint16)]
+
+        # void mlx90641_register_driver(struct MLX90641DriverRegister_t *driver);
+        self._register_driver = lib_mlx90641.mlx90641_register_driver
         self._register_driver.restype = None
         self._register_driver.argtypes = [ctypes.POINTER(ctypes.c_uint16)]
 
@@ -137,68 +136,67 @@ class mlx90641():
         # self._get_register_devtree.restype = ctypes.POINTER(ctypes.c_uint16)
         # self._get_register_devtree.argtypes = []
         # self._register_driver(self._get_register_devtree())
-        
+
         # struct MLX90641DriverRegister_t *MLX90641_get_register_mcp2221(void);
-        self._get_register_mcp2221 = libmlx90641.MLX90641_get_register_mcp2221
+        self._get_register_mcp2221 = lib_mlx90641.MLX90641_get_register_mcp2221
         self._get_register_mcp2221.restype = ctypes.POINTER(ctypes.c_uint16)
         self._get_register_mcp2221.argtypes = []
         self._register_driver(self._get_register_mcp2221())
 
+    def i2c_init(self, i2c_port=None):
+        if i2c_port is None:
+            i2c_port = "/dev/i2c-1"
+        return self._i2c_init(i2c_port.encode())
 
-    def i2c_init(self, i2cPort=None):
-        if i2cPort is None:
-            i2cPort = "/dev/i2c-1"
-        return self._I2CInit(i2cPort.encode())
-        
     def i2c_set_frequency(self, frequency_hz):
-        return self._I2CFreqSet(freq)
-        
-    def i2c_close(self):
-        return self._I2CCloseMlx90641()
-    
+        return self._i2c_freq_set(frequency_hz)
+
+    def i2c_tear_down(self):
+        return self._i2c_tear_down()
+
     def dump_eeprom(self):
-        ret = self._dumpEE(self.slaveAddr, ctypes.cast(self.eepromdata, ctypes.POINTER(ctypes.c_uint16)))
+        ret = self._dump_eeprom(self.slave_address, ctypes.cast(self.eeprom_data, ctypes.POINTER(ctypes.c_uint16)))
         if ret == -1:
             raise Exception("Acknowledge issue on I2C bus; data is not valid")
         if ret == -10:
             raise Exception("double bit error; not corrected; data is not valid")
 
-        return [int(x) for x in self.eepromdata]
-    
+        return [int(x) for x in self.eeprom_data]
+
     def get_frame_data(self):
-        ret = self._getFrameData(self.slaveAddr, ctypes.cast(self.frameData, ctypes.POINTER(ctypes.c_uint16)))
+        ret = self._get_frame_data(self.slave_address, ctypes.cast(self.frame_data, ctypes.POINTER(ctypes.c_uint16)))
         if ret == -1:
             raise Exception("Acknowledge issue on I2C bus; data is not valid")
         if ret == -8:
             raise Exception("timeout")
-        return [int(x) for x in self.frameData]
-    
+        return [int(x) for x in self.frame_data]
+
     def extract_parameters(self):
-        return self._extractParameters(self.eepromdata, ctypes.byref(self.params))
-    
+        return self._extract_parameters(self.eeprom_data, ctypes.byref(self.params))
+
     def get_vdd(self):
-        return self._getVdd(self.frameData, self.params)
-    
-    def get_TA(self):
-        return self._getTa(self.frameData, self.params)
-    
-    def calculate_TO(self, emissivity, tr):
-        self._calculateTo(self.frameData, self.params, emissivity, tr, self.mlx90641To)
-        return [float(x) for x in self.mlx90641To]
+        return self._get_vdd(self.frame_data, self.params)
+
+    def get_ta(self):
+        return self._get_ta(self.frame_data, self.params)
+
+    def calculate_to(self, emissivity, tr):
+        self._calculate_to(self.frame_data, self.params, emissivity, tr, self.mlx90641_to)
+        return [float(x) for x in self.mlx90641_to]
 
     def set_resolution(self, resolution):
-        return  self._setResolution(self.slaveAddr, resolution)
+        return self._set_resolution(self.slave_address, resolution)
 
     def get_resolution(self):
-        return self._getResolution(self.slaveAddr)
+        return self._get_resolution(self.slave_address)
 
     def set_refresh_rate(self, refresh_rate):
-        sa = ctypes.c_uint8(self.slaveAddr)
+        sa = ctypes.c_uint8(self.slave_address)
         rr = ctypes.c_uint8(refresh_rate)
-        return  self._setRefreshRate(sa, rr)
+        return self._set_refresh_rate(sa, rr)
 
     def get_refresh_rate(self):
-        return self._getRefreshRate(self.slaveAddr)
-    
+        return self._get_refresh_rate(self.slave_address)
+
     def get_sub_page_number(self):
-        return self._getSubPageNumber(self.frameData)
+        return self._get_sub_page_number(self.frame_data)
