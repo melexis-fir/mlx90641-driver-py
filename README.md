@@ -1,3 +1,19 @@
+# MLX90641 driver
+
+This is a work-in-progess!
+
+Currently only windows 10 is working with MCP2221 USB to I2C adaptor.
+
+Milestones:
+- [x] win 10 PC + mcp2221
+- [ ] Raspberry pi + devtree (/dev/i2c-1)
+- [ ] Jetson Nano + devtree
+- [ ] Raspberry pi + mcp2221
+- [ ] linux pc + mcp2221
+- [ ] windows 10 pc + EVB90640-41
+- [ ] linux pc + EVB
+- [ ] raspberry pi + EVB
+
 # Intro
 
 This python driver for MLX90641 aims to facilitate the interfacing on a PC.
