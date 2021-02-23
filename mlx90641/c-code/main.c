@@ -7,7 +7,7 @@
 
 #include "MLX90641_I2C_Driver.h"
 #include "MLX90641_API.h"
-#include "mlx90641_driver_api_register.h"
+#include "mlx90641_driver_register.h"
 #include "MLX90641_I2C_Driver_mcp2221.h"
 
 #define MLX_I2C_ADDR 0x33
