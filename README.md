@@ -2,14 +2,13 @@
 
 This is a work-in-progess!
 
-Currently only windows 10 is working with MCP2221 USB to I2C adaptor.
-
 Milestones:
 - [x] win 10 PC + mcp2221
 - [x] Raspberry pi + devtree (/dev/i2c-1)
 - [x] Jetson Nano + devtree
 - [x] Raspberry pi + mcp2221
-- [ ] linux pc + mcp2221
+- [x] linux pc + mcp2221
+- [ ] Jetson Nano + mcp2221
 - [ ] windows 10 pc + EVB90640-41
 - [ ] linux pc + EVB
 - [ ] raspberry pi + EVB
