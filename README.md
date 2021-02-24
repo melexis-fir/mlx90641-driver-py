@@ -12,6 +12,7 @@ Milestones:
 - [ ] windows 10 pc + EVB90640-41
 - [ ] linux pc + EVB
 - [ ] raspberry pi + EVB
+- [ ] BeagleBone + mcp2221 + devtree + EVB
 
 # Intro
 
