@@ -18,8 +18,8 @@ int main(void){
     mlx90641_register_driver(MLX90641_get_register_mcp2221());
     mlx90641_register_driver(MLX90641_get_register_devtree());
 
-    // MLX90641_I2CInit("mcp://mcp:2221/0");
-    MLX90641_I2CInit("/dev/i2c-1");
+    MLX90641_I2CInit("mcp://mcp:2221/0");
+    //MLX90641_I2CInit("/dev/i2c-1");
 
     // int state = 0;
     printf("Starting...\n");
@@ -30,7 +30,7 @@ int main(void){
     float eTa;
     // static uint16_t data[768*sizeof(float)];
 
-    int r = MLX90641_SetRefreshRate(MLX_I2C_ADDR, 0);
+    int r = MLX90641_SetRefreshRate(MLX_I2C_ADDR, 2);
     printf("Configured...%d\n", r);
 
     printf("refresh = %d\n", MLX90641_GetRefreshRate (MLX_I2C_ADDR));
