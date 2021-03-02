@@ -6,20 +6,14 @@
 
 ![platform](https://img.shields.io/badge/platform-win10%20%7C%20linux%20PC%20%7C%20rasberry%20pi%204%20%7C%20Jetson%20Nano%20%7C%20beagle%20bone-lightgrey)  
 
-
-Note This is a base package, a low level I2C driver is still needed.  
-- https://github.com/melexis-fir/mlx90641-driver-evb9064x-py
-- https://github.com/melexis-fir/mlx90641-driver-devicetree-py  (/dev/i2c-<x>)
-- https://github.com/melexis-fir/mlx90641-driver-mcp2221-py
-- or make your own.
-
 # Intro
 
-This python driver for MLX90641 aims to facilitate the interfacing on a PC.
+MLX90641 is a thermal camera (16x12 pixels) using Far InfraRed radiation from objects to measure the object temperature.  
+This python driver interfaces the MLX90641 and aims to facilitate the interfacing for prototyping applications.
 
 Currently this driver supports 3 type of interfaces:
 - EVB90640-41 ==> https://www.melexis.com/en/product/EVB90640-41/
-- Raspberry Pi with I2C on any GPIO pin.
+- Raspberry Pi with I2C on the 40-pin header.
 - MCP2221 USB to I2C adaptor.
 
 ## Getting started
@@ -32,6 +26,12 @@ pip install mlx90641-driver
 
 https://pypi.org/project/mlx90641-driver/  
 https://pypistats.org/packages/mlx90641-driver
+
+Note This is a base package, therefore one of the below I2C drivers is still needed:  
+- https://github.com/melexis-fir/mlx90641-driver-evb9064x-py
+- https://github.com/melexis-fir/mlx90641-driver-devicetree-py  (/dev/i2c-<x>)
+- https://github.com/melexis-fir/mlx90641-driver-mcp2221-py
+- or make your own.
 
 ### Running the driver demo
 
@@ -47,4 +47,3 @@ This program takes 1 optional argument.
 ```bash
 mlx90641-dump-frame <communication-port>
 ```
-
