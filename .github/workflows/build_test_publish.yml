@@ -66,7 +66,10 @@ jobs:
   unittest:
     runs-on: ubuntu-latest
     needs:
+      - build-rpi4
+      - build-jetson-nano
       - build-linux-pc
+      - build-win10-pc
     steps:
     - uses: actions/checkout@v2
 
@@ -75,9 +78,6 @@ jobs:
     if:   github.event_name == 'release' && github.event.action == 'created'
     needs:
       - unittest
-      - build-rpi4
-      - build-jetson-nano
-      - build-win10-pc
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@master
