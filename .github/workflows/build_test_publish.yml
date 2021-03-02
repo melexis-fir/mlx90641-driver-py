@@ -120,7 +120,7 @@ jobs:
       - hw_mlx90641
       - hw_i2c_evb9064x
     needs:
-      - unittest
+      - test-unittesting
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@master
@@ -135,7 +135,7 @@ jobs:
       - hw_mlx90641
       - hw_i2c_evb9064x
     needs:
-      - unittest
+      - test-unittesting
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@master
@@ -150,7 +150,7 @@ jobs:
       - hw_mlx90641
       - hw_i2c_evb9064x
     needs:
-      - unittest
+      - test-unittesting
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@master
@@ -166,7 +166,7 @@ jobs:
       - hw_mlx90641
       - hw_i2c_evb9064x
     needs:
-      - unittest
+      - test-unittesting
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@master
