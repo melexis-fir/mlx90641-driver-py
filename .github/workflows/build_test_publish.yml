@@ -113,26 +113,35 @@ jobs:
         twine upload dist/*
 
   test-on-rpi4:
-    runs-on: ubuntu-latest
-    if:   github.event_name == 'release' && github.event.action == 'created'
-    needs: [publish-pypi]
+    runs-on: 
+      - self-hosted
+      - linux
+      - rpi4
+    # needs: [publish-pypi]
     steps:
     - uses: actions/checkout@v2
   test-on-jetson-nano:
-    runs-on: ubuntu-latest
-    if:   github.event_name == 'release' && github.event.action == 'created'
-    needs: [publish-pypi]
+    runs-on: 
+      - self-hosted
+      - linux
+      - jetson-nano
+    # needs: [publish-pypi]
     steps:
     - uses: actions/checkout@v2
   test-on-linux-pc:
-    runs-on: ubuntu-latest
-    if:   github.event_name == 'release' && github.event.action == 'created'
-    needs: [publish-pypi]
+    runs-on: 
+      - self-hosted
+      - linux
+      - ubuntu
+    # needs: [publish-pypi]
     steps:
     - uses: actions/checkout@v2
   test-on-win10-pc:
-    runs-on: ubuntu-latest
-    if:   github.event_name == 'release' && github.event.action == 'created'
-    needs: [publish-pypi]
+    runs-on: 
+      - self-hosted
+      - windows
+      - win10
+      - mingw
+    # needs: [publish-pypi]
     steps:
     - uses: actions/checkout@v2
