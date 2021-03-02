@@ -19,11 +19,11 @@ jobs:
       CFLAGS_EXTRA: '-D_BSD_SOURCE'
     steps:
     - uses: actions/checkout@v2
-    - run: make -C devicetree/c-code clean all -e MACHINE=armv7l -e LIB_RESULT_DIR=builded
+    - run: make -C mlx90641/c-code clean all -e MACHINE=armv7l -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:
         name: bin_rpi4
-        path: devicetree/c-code/builded
+        path: mlx90641/c-code/builded
   build-jetson-nano:
     runs-on: ubuntu-latest
     container:
@@ -34,29 +34,29 @@ jobs:
       CFLAGS_EXTRA: '-D_BSD_SOURCE'
     steps:
     - uses: actions/checkout@v2
-    - run: make -C devicetree/c-code clean all -e MACHINE=aarch64 -e LIB_RESULT_DIR=builded
+    - run: make -C mlx90641/c-code clean all -e MACHINE=aarch64 -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:
         name: bin_jetson_nano
-        path: devicetree/c-code/builded
+        path: mlx90641/c-code/builded
   build-linux-pc:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: make -C devicetree/c-code clean all -e LIB_RESULT_DIR=builded
+    - run: make -C mlx90641/c-code clean all -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:
         name: bin_linux_pc
-        path: devicetree/c-code/builded
+        path: mlx90641/c-code/builded
   build-win10-pc:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    #- run: make -C devicetree/c-code clean all -e LIB_RESULT_DIR=builded
+    #- run: make -C mlx90641/c-code clean all -e LIB_RESULT_DIR=builded
     #- uses: actions/upload-artifact@master
     #  with:
     #    name: bin_win10_pc
-    #    path: devicetree/c-code/builded
+    #    path: mlx90641/c-code/builded
 
   unittest-rpi4:
     runs-on: ubuntu-latest
