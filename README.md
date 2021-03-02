@@ -2,6 +2,8 @@
 
 [![build-test-publish](https://github.com/melexis-fir/mlx90641-driver-py/actions/workflows/build_test_publish.yml/badge.svg?branch=V0.1.3&event=release)](https://github.com/melexis-fir/mlx90641-driver-py/actions/workflows/build_test_publish.yml)
 
+![PyPI](https://img.shields.io/pypi/v/mlx90641-driver?logoColor=red)
+
 Milestones:
 - [x] win 10 PC
 - [x] Raspberry pi
