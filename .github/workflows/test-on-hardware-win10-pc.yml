@@ -1,0 +1,19 @@
+name: test-on-hardware-win10-pc
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+
+jobs:
+  test-on-hardware:
+    runs-on: 
+      - self-hosted
+      - windows
+      - win10
+      - hw_mlx90641
+    steps:
+    - uses: actions/checkout@v2

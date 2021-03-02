@@ -1,0 +1,19 @@
+name: test-on-hardware-jetson-nano
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+
+jobs:
+  test-on-hardware:
+    runs-on: 
+      - self-hosted
+      - linux
+      - jetson-nano
+      - hw_mlx90641
+    steps:
+    - uses: actions/checkout@v2
