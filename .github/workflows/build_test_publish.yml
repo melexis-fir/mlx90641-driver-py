@@ -83,19 +83,19 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: bin_rpi4
-        path: devicetree/libs
+        path: mlx90641/libs
     - uses: actions/download-artifact@master
       with:
         name: bin_jetson_nano
-        path: devicetree/libs
+        path: mlx90641/libs
     - uses: actions/download-artifact@master
       with:
         name: bin_linux_pc
-        path: devicetree/libs
+        path: mlx90641/libs
     - uses: actions/download-artifact@master
       with:
         name: bin_win10_pc
-        path: devicetree/libs
+        path: mlx90641/libs
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
