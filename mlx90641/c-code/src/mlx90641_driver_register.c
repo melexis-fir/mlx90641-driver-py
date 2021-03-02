@@ -5,8 +5,8 @@
 
 #define DRIVER_LIST_LEN 10
 
-struct MLX90641DriverRegister_t *g_driver_list[DRIVER_LIST_LEN];
-int16_t g_active_driver_index = -1;
+static struct MLX90641DriverRegister_t *g_driver_list[DRIVER_LIST_LEN];
+static int16_t g_active_driver_index = -1;
 
 
 void

@@ -120,10 +120,13 @@ class MLX90641:
         self._get_sub_page_number.restype = ctypes.c_int
         self._get_sub_page_number.argtypes = [ctypes.POINTER(ctypes.c_uint16)]
 
+
         # void mlx90641_register_driver(struct MLX90641DriverRegister_t *driver);
         self._register_driver = lib_mlx90641.mlx90641_register_driver
         self._register_driver.restype = None
         self._register_driver.argtypes = [ctypes.POINTER(ctypes.c_uint16)]
+
+        # https://github.com/melexis-fir?q=repo%3Amlx90641-driver-+topic%3Ahardware&type=&language=
 
         # # struct MLX90641DriverRegister_t *MLX90641_get_register_evb9064x(void);
         # self._get_register_evb9064x = lib_mlx90641.MLX90641_get_register_evb9064x
@@ -131,17 +134,17 @@ class MLX90641:
         # self._get_register_evb9064x.argtypes = []
         # self._register_driver(self._get_register_evb9064x())
 
-        # struct MLX90641DriverRegister_t *MLX90641_get_register_devtree(void);
-        self._get_register_devtree = lib_mlx90641.MLX90641_get_register_devtree
-        self._get_register_devtree.restype = ctypes.POINTER(ctypes.c_uint16)
-        self._get_register_devtree.argtypes = []
-        self._register_driver(self._get_register_devtree())
+        # # struct MLX90641DriverRegister_t *MLX90641_get_register_devtree(void);
+        # self._get_register_devtree = lib_mlx90641.MLX90641_get_register_devtree
+        # self._get_register_devtree.restype = ctypes.POINTER(ctypes.c_uint16)
+        # self._get_register_devtree.argtypes = []
+        # self._register_driver(self._get_register_devtree())
 
-        # struct MLX90641DriverRegister_t *MLX90641_get_register_mcp2221(void);
-        self._get_register_mcp2221 = lib_mlx90641.MLX90641_get_register_mcp2221
-        self._get_register_mcp2221.restype = ctypes.POINTER(ctypes.c_uint16)
-        self._get_register_mcp2221.argtypes = []
-        self._register_driver(self._get_register_mcp2221())
+        # # struct MLX90641DriverRegister_t *MLX90641_get_register_mcp2221(void);
+        # self._get_register_mcp2221 = lib_mlx90641.MLX90641_get_register_mcp2221
+        # self._get_register_mcp2221.restype = ctypes.POINTER(ctypes.c_uint16)
+        # self._get_register_mcp2221.argtypes = []
+        # self._register_driver(self._get_register_mcp2221())
 
     def i2c_init(self, i2c_port=None):
         if i2c_port is None:

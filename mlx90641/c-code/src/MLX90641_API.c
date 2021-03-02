@@ -47,7 +47,7 @@ int MLX90641_DumpEE(uint8_t slaveAddr, uint16_t *eeData)
      {
         error = HammingDecode(eeData);  
      }
-         
+
      return error;
 }
 
