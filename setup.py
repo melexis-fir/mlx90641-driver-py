@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '1.1.1'
+version = '1.1.2'
 
 requires = []
 
@@ -10,13 +10,14 @@ with open("README.md", "r") as fh:
 setup(
     name='mlx90641-driver',
     version=version,
-    description='MLX90641 FIR Array python interface',
+    description='MLX90641 Melexis thermal camera (16x12) rapid prototyping python package',
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='Apache License, Version 2.0',
     # entry_points = {'console_scripts': ['mlx90641-dump-frame = mlx.examples.mlx90640_dump_frame:main']},
     entry_points={'console_scripts': []},
     install_requires=requires,
+    python_requires='>=3.6',
     url='https://github.com/melexis-fir/mlx90641-driver-py',
     # Provide either the link to your github or to your website
     download_url='https://github.com/melexis-fir/mlx90641-driver-py/archive/V' + version + '.tar.gz',
@@ -32,7 +33,7 @@ setup(
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Utilities',
     ],
 )
