@@ -1,5 +1,7 @@
 # MLX90641 driver
 
+[![build-test-publish](https://github.com/melexis-fir/mlx90641-driver-py/actions/workflows/build_test_publish.yml/badge.svg?branch=V0.1.3&event=release)](https://github.com/melexis-fir/mlx90641-driver-py/actions/workflows/build_test_publish.yml)
+
 This is a work-in-progess!
 
 Milestones:
