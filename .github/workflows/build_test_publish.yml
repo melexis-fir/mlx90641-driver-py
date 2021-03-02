@@ -50,13 +50,18 @@ jobs:
         path: mlx90641/c-code/builded
   build-win10-pc:
     runs-on: ubuntu-latest
+    env:
+      CC: /usr/local/bin/x86_64-w64-mingw32-gcc
+      AR: /usr/local/bin/x86_64-w64-mingw32-ar
+    container:
+      image: mmozeiko/mingw-w64:latest
     steps:
     - uses: actions/checkout@v2
-    #- run: make -C mlx90641/c-code clean all -e LIB_RESULT_DIR=builded
-    #- uses: actions/upload-artifact@master
-    #  with:
-    #    name: bin_win10_pc
-    #    path: mlx90641/c-code/builded
+    - run: make -C mlx90641/c-code clean all -e LIB_RESULT_DIR=builded MACHINE=windows
+    - uses: actions/upload-artifact@master
+      with:
+        name: bin_win10_pc
+        path: mlx90641/c-code/builded
 
   unittest-rpi4:
     runs-on: ubuntu-latest
