@@ -2,13 +2,8 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/melexis-fir/mlx90641-driver-py?label=github-latest-release-tag) ![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/melexis-fir/mlx90641-driver-py/build-test-publish?event=release&label=github-workflow) ![Lines of code](https://img.shields.io/tokei/lines/github/melexis-fir/mlx90641-driver-py)  
 
-![PyPI](https://img.shields.io/pypi/v/mlx90641-driver) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mlx90641-driver)  
+![PyPI](https://img.shields.io/pypi/v/mlx90641-driver) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mlx90641-driver) ![platform](https://img.shields.io/badge/platform-win10%20%7C%20linux%20PC%20%7C%20rasberry%20pi%204%20%7C%20Jetson%20Nano%20%7C%20beagle%20bone-lightgrey)  
 
-Milestones:
-- [x] win 10 PC
-- [x] Raspberry pi
-- [x] Jetson Nano
-- [x] linux pc
 
 Note This is a base package, a low level I2C driver is still needed.  
 - https://github.com/melexis-fir/mlx90641-driver-evb9064x-py
