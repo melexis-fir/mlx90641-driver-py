@@ -2,7 +2,7 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/melexis-fir/mlx90641-driver-py?label=github-latest-release-tag) ![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/melexis-fir/mlx90641-driver-py/build-test-publish?event=release&label=github-workflow) ![Lines of code](https://img.shields.io/tokei/lines/github/melexis-fir/mlx90641-driver-py)  
 
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mlx90641-driver) ![PyPI](https://img.shields.io/pypi/v/mlx90641-driver)  
+![PyPI](https://img.shields.io/pypi/v/mlx90641-driver) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mlx90641-driver)  
 
 Milestones:
 - [x] win 10 PC
