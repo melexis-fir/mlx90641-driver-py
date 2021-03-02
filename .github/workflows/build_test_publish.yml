@@ -63,31 +63,21 @@ jobs:
         name: bin_win10_pc
         path: mlx90641/c-code/builded
 
-  unittest-rpi4:
+  unittest:
     runs-on: ubuntu-latest
-    needs: [build-rpi4]
-    steps:
-    - uses: actions/checkout@v2
-  unittest-jetson-nano:
-    runs-on: ubuntu-latest
-    needs: [build-jetson-nano]
-    steps:
-    - uses: actions/checkout@v2
-  unittest-linux-pc:
-    runs-on: ubuntu-latest
-    needs: [build-linux-pc]
-    steps:
-    - uses: actions/checkout@v2
-
-
-  publish-pypi:
-    runs-on: ubuntu-latest
-    if:   github.event_name == 'release' && github.event.action == 'created'
     needs:
       - build-rpi4
       - build-jetson-nano
       - build-linux-pc
       - build-win10-pc
+    steps:
+    - uses: actions/checkout@v2
+
+  publish-pypi:
+    runs-on: ubuntu-latest
+    if:   github.event_name == 'release' && github.event.action == 'created'
+    needs:
+      - unittest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/download-artifact@master
@@ -96,11 +86,15 @@ jobs:
         path: devicetree/libs
     - uses: actions/download-artifact@master
       with:
+        name: bin_jetson_nano
+        path: devicetree/libs
+    - uses: actions/download-artifact@master
+      with:
         name: bin_linux_pc
         path: devicetree/libs
     - uses: actions/download-artifact@master
       with:
-        name: bin_jetson_nano
+        name: bin_win10_pc
         path: devicetree/libs
     - name: Set up Python
       uses: actions/setup-python@v1
