@@ -57,7 +57,7 @@ jobs:
       image: mmozeiko/mingw-w64:latest
     steps:
     - uses: actions/checkout@v2
-    - run: make -C mlx90641/c-code clean all -e LIB_RESULT_DIR=builded MACHINE=windows
+    - run: make -C mlx90641/c-code clean all -e LIB_RESULT_DIR=builded detected_OS=Windows
     - uses: actions/upload-artifact@master
       with:
         name: bin_win10_pc
