@@ -2,6 +2,8 @@
 
 [![build-test-publish](https://github.com/melexis-fir/mlx90641-driver-py/actions/workflows/build_test_publish.yml/badge.svg?branch=V0.1.3&event=release)](https://github.com/melexis-fir/mlx90641-driver-py/actions/workflows/build_test_publish.yml)
 
+![example event parameter](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?event=release)
+
 This is a work-in-progess!
 
 Milestones:
