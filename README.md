@@ -30,7 +30,7 @@ Currently this driver supports 3 type of interfaces:
 pip install mlx90641-driver
 ```
 
-https://pypi.org/project/mlx90641-driver/
+https://pypi.org/project/mlx90641-driver/  
 https://pypistats.org/packages/mlx90641-driver
 
 ### Running the driver demo
