@@ -1,10 +1,11 @@
 # MLX90641 driver
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/melexis-fir/mlx90641-driver-py?label=github-latest-release-tag) ![Lines of code](https://img.shields.io/tokei/lines/github/melexis-fir/mlx90641-driver-py)  
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/melexis-fir/mlx90641-driver-py?label=github-latest-release-tag)](https://github.com/melexis-fir/mlx90641-driver-py/releases) ![Lines of code](https://img.shields.io/tokei/lines/github/melexis-fir/mlx90641-driver-py)  
 
-![PyPI](https://img.shields.io/pypi/v/mlx90641-driver) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mlx90641-driver) ![PyPI - License](https://img.shields.io/pypi/l/mlx90641-driver)  
+[![PyPI](https://img.shields.io/pypi/v/mlx90641-driver)](https://pypi.org/project/mlx90641-driver) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mlx90641-driver) ![PyPI - License](https://img.shields.io/pypi/l/mlx90641-driver-mcp2221)  
 
-![platform](https://img.shields.io/badge/platform-win10%20%7C%20linux%20PC%20%7C%20rasberry%20pi%204%20%7C%20Jetson%20Nano%20%7C%20beagle%20bone-lightgrey)  
+![platform](https://img.shields.io/badge/platform-Win10%20PC%20%7C%20linux%20PC%20%7C%20rasberry%20pi%204%20%7C%20Jetson%20Nano%20%7C%20beagle%20bone-lightgrey)  
+
 
 # Intro
 
