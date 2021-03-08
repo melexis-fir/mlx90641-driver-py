@@ -53,7 +53,7 @@ main: main.o src/MLX90641_API.o src/mlx90641_driver_register.o
 
 
 $(SHARED_LIB_FILE): src/MLX90641_API.o src/mlx90641_driver_register.o
-	$(CC) -shared -o $@ $^ -L$(LIB_RESULT_DIR)/$(MACHINE) $(DEP_LIBS) -Wl,-rpath=$(LIB_RESULT_DIR)/$(MACHINE)
+	$(CC) -shared -o $@ $^ -L../libs/$(MACHINE) $(DEP_LIBS) -Wl,-rpath=../libs/$(MACHINE)
 	@mkdir -p $(LIB_RESULT_DIR)/$(MACHINE)
 	@cp -fv $@ $(LIB_RESULT_DIR)/$(MACHINE)
 

@@ -6,9 +6,9 @@ def main():
     dev = MLX90641()
     print("dev", dev)
 
-    r = dev.i2c_init("/dev/i2c-1")
+    # r = dev.i2c_init("/dev/i2c-1")
     # r = dev.i2c_init("ftdi://ftdi:2232/1")
-    # r = dev.i2c_init("mcp://mcp:2221/0")
+    r = dev.i2c_init("mcp://mcp:2221/0")
     print("init", r)
     r = dev.set_refresh_rate(1)
     print("setRefreshRate", r)
