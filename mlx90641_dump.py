@@ -21,7 +21,7 @@ def main():
 
     for i in range(0, 10):
         dev.get_frame_data()
-        ta = dev.get_ta() - 8.0
+        ta = dev.get_ta() - 5.0
         emissivity = 1
 
         to = dev.calculate_to(emissivity, ta)
